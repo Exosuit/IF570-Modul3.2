@@ -84,6 +84,7 @@ fun RallyApp() {
             ) {
                 composable(route = Overview.route) {
                     OverviewScreen(
+                        
                         onClickSeeAllAccounts = {
                             navController.navigateSingleTopTo(Accounts.route)
                         },
@@ -94,11 +95,18 @@ fun RallyApp() {
                     )
                 }
                 composable(route = Accounts.route) {
-                    AccountsScreen()
+                    AccountsScreen(
+                        onAccountClick = { accountType ->
+                            navController
+                                .navigateSingleTopTo("${SingleAccount.route}/$accountType")
+                        }
+                    )
                 }
                 composable(route = Bills.route) {
                     BillsScreen()
                 }
+                private fun NavHostController.navigateToSingleAccount(accountType: String) {
+                    this.navigateSingleTopTo("${SingleAccount.route}/$accountType")
             }
     }
 }
